@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Escapade — votre carnet de petites sorties</title>
+  <meta name="description" content="Choisissez un budget, une durée et composez votre programme de sortie. Site de démonstration.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#resultats">Aller aux résultats</a>
+
+  <header class="hero">
+    <div class="hero__deco" aria-hidden="true">
+      <svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMid slice">
+        <circle cx="320" cy="50" r="38" class="deco-sun"/>
+        <path d="M0 200 L0 140 Q60 90 120 130 T240 120 T400 110 L400 200 Z" class="deco-hill1"/>
+        <path d="M0 200 L0 165 Q80 125 160 160 T320 150 T400 160 L400 200 Z" class="deco-hill2"/>
+      </svg>
+    </div>
+    <div class="wrap hero__inner">
+      <p class="kicker">Carnet d’escapade</p>
+      <h1>Une petite sortie,<br>un programme sur mesure.</h1>
+      <p class="lead">Indiquez votre budget et votre temps libre : Escapade vous propose des idées et une checklist à personnaliser. Sans compte, tout reste dans votre navigateur.</p>
+      <button type="button" id="theme-toggle" class="btn btn--ghost" aria-pressed="false">Mode sombre : désactivé</button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <p class="notice" role="note">
+      <strong>Destination d’exemple : « Port-Lumière » (ville fictive).</strong>
+      Les activités, prix et durées sont des exemples à remplacer ou vérifier avant un usage réel.
+    </p>
+
+    <section aria-labelledby="t-criteres" class="panel">
+      <h2 id="t-criteres">1. Vos critères</h2>
+      <form id="filtres" class="filters" novalidate>
+        <div class="field">
+          <label for="destination">Destination</label>
+          <select id="destination" name="destination">
+            <option value="port-lumiere">Port-Lumière (exemple)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="budget">Budget maximal par activité : <output id="budget-out" for="budget">60 €</output></label>
+          <input type="range" id="budget" name="budget" min="0" max="60" step="5" value="60" aria-describedby="budget-aide">
+          <small id="budget-aide">0 € = activités gratuites uniquement.</small>
+        </div>
+        <div class="field">
+          <label for="duree">Durée maximale par activité</label>
+          <select id="duree" name="duree">
+            <option value="0">Peu importe</option>
+            <option value="60">1 h maximum</option>
+            <option value="120">2 h maximum</option>
+            <option value="180">3 h maximum</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="categorie">Catégorie</label>
+          <select id="categorie" name="categorie">
+            <option value="toutes">Toutes les catégories</option>
+          </select>
+        </div>
+        <div class="field field--actions">
+          <button type="button" id="hasard" class="btn">Choisir pour moi</button>
+        </div>
+      </form>
+    </section>
+
+    <div class="columns">
+      <section id="resultats" aria-labelledby="t-resultats" tabindex="-1">
+        <h2 id="t-resultats">2. Idées de sorties</h2>
+        <p id="compteur" class="count" role="status" aria-live="polite"></p>
+        <div id="cartes" class="cards"></div>
+        <div id="vide" class="empty" hidden>
+          <p><strong>Aucune activité ne correspond à ces critères.</strong></p>
+          <p>Essayez d’augmenter le budget, d’allonger la durée ou de choisir « Toutes les catégories ».</p>
+          <button type="button" id="assouplir" class="btn">Réinitialiser les critères</button>
+        </div>
+      </section>
+
+      <aside aria-labelledby="t-programme" class="side">
+        <section class="panel panel--sticky">
+          <h2 id="t-programme">3. Mon programme</h2>
+          <div id="programme-live" aria-live="polite" aria-atomic="true">
+            <ul id="programme" class="plan"></ul>
+            <p id="programme-vide" class="muted">Aucune activité choisie pour l’instant.</p>
+            <p class="totals">
+              <span>Durée totale : <strong id="total-duree">0 min</strong></span>
+              <span>Coût estimé : <strong id="total-cout">0 €</strong></span>
+            </p>
+          </div>
+        </section>
+
+        <section class="panel" aria-labelledby="t-checklist">
+          <h2 id="t-checklist">4. Checklist</h2>
+          <ul id="checklist" class="check"></ul>
+          <form id="ajout-item" class="inline-form">
+            <label for="nouvel-item" class="sr-only">Ajouter un élément à la checklist</label>
+            <input type="text" id="nouvel-item" placeholder="Ajouter un élément" maxlength="60">
+            <button type="submit" class="btn">Ajouter</button>
+          </form>
+        </section>
+
+        <button type="button" id="reset" class="btn btn--danger">Effacer mes données sauvegardées</button>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <p>Escapade — projet de démonstration. Contenu fictif ; aucune donnée n’est envoyée : tout est conservé dans votre navigateur (<code>localStorage</code>).</p>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
